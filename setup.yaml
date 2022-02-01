@@ -47,8 +47,10 @@
     - name: "Make & Make install"
       make:
         chdir: "/opt/sqlite-autoconf-3350500"
+        remote_src: yes
       make:
         chdir: "/opt/sqlite-autoconf-3350500"
+        remote_src: yes
         target: install
     - name: "Move sqlite executables"
       command: mv /usr/bin/sqlite3 /usr/bin/sqlite3_3.7.17
