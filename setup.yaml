@@ -38,6 +38,10 @@
         src: "/opt/sqlite-autoconf-3350500.tar.gz"
         dest: "/opt/sqlite-autoconf-3350500"
         remote_src: yes
+    - command: "ls /opt/sqlite-autoconf-3350500"
+      register: dir_out
+    - debug: var={{item}}
+      with_items: dir_out.stdout_lines
     - name: "Run configure for sqlite3"
       script:
         cmd: "/opt/sqlite-autoconf-3350500/configure --prefix=/usr/local/"
