@@ -7,6 +7,10 @@
     - name: "Install required dependencies"
       yum:
         name: gcc, git, pip
+    - name: "Remove previous repo"
+      file:
+        state: absent
+        path: "/opt/django_app"
     - name: "Download repository"
       git:
         repo: "{{REPOSITORY_URL}}"
