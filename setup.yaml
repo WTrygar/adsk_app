@@ -29,14 +29,10 @@
       get_url:
         url: https://www.sqlite.org/2021/sqlite-autoconf-3350500.tar.gz
         dest: "/opt/sqlite-autoconf-3350500.tar.gz"
-    - name: "make directory"
-      file: 
-        path: "/opt/sqlite-autoconf-3350500"
-        state: directory
     - name: "Unpack sqlite3"
       unarchive:
         src: "/opt/sqlite-autoconf-3350500.tar.gz"
-        dest: "/opt/sqlite-autoconf-3350500"
+        dest: "/opt"
         remote_src: yes
     - command: "ls /opt/sqlite-autoconf-3350500"
       register: dir_out
@@ -45,13 +41,8 @@
     - name: "Run configure for sqlite3"
       command: "/opt/sqlite-autoconf-3350500/configure --prefix=/usr/local/"
     - name: "Make & Make install"
-      make:
-        chdir: "/opt/sqlite-autoconf-3350500"
-        remote_src: yes
-      make:
-        chdir: "/opt/sqlite-autoconf-3350500"
-        remote_src: yes
-        target: install
+      command: "sudo make -C /opt/sqlite-autoconf-3350500"
+      command: "sudo make install -C /opt/sqlite-autoconf-3350500"
     - name: "Move sqlite executables"
       command: mv /usr/bin/sqlite3 /usr/bin/sqlite3_3.7.17
       command: cp /opt/sqlite-autoconf-3350500/sqlite3 /usr/bin/sqlite3
