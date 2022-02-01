@@ -46,6 +46,7 @@
       command: cd /opt/sqlite-autoconf-3350500 && export LD_LIBRARY_PATH="/usr/local/lib/"
     - name: "Create a systemd service"
       copy:
+        remote_src: yes
         src: "/opt/django_app/django_app.service"
         dest: "/etc/systemd/system/django_app.service"
     - name: "Start the service"
