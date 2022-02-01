@@ -5,7 +5,7 @@ After=network-online.target
 [Service]
 Type=simple
 User=ec2-user
-ExecStart=/opt/django_app/.venv/Scripts/python3 manage.py runserver 0.0.0.0:8080
+ExecStart=/opt/django_app/.venv/Scripts/python manage.py runserver 0.0.0.0:8080
 Restart=always
 WorkingDirectory=/opt/django_app
 
