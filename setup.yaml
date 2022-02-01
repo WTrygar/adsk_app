@@ -17,7 +17,7 @@
         search_string: 'ALLOWED_HOSTS'
         line: ALLOWED_HOSTS = [{{ansible_default_ipv4.address}}]
     - name: "Create venv"
-      pip3:
+      pip:
         requirements: "/opt/django_app/requirements.txt"
         virtualenv: "/opt/django_app/.venv"
         virtualenv_command: "python3 -m venv"
