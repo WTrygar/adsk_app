@@ -29,14 +29,10 @@
       get_url:
         url: https://www.sqlite.org/2021/sqlite-autoconf-3350500.tar.gz
         dest: "/opt/sqlite-autoconf-3350500.tar.gz"
-    - name: "make directory"
-      file: 
-        path: "/opt/sqlite-autoconf-3350500"
-        state: directory
     - name: "Unpack sqlite3"
       unarchive:
         src: "/opt/sqlite-autoconf-3350500.tar.gz"
-        dest: "/opt/sqlite-autoconf-3350500"
+        dest: "/opt"
         remote_src: yes
     - name: "Run configure for sqlite3"
       script:
