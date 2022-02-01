@@ -6,7 +6,7 @@ After=network-online.target
 Type=simple
 User=ec2-user
 WorkingDirectory=/opt/django_app
-ExecStart=.venv/Scripts/python manage.py runserver 0.0.0.0:8080
+ExecStart=/.venv/Scripts/python manage.py runserver 0.0.0.0:8080
 Restart=always
 
 [Install]
