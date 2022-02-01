@@ -1,0 +1,13 @@
+[Unit]
+Description=My django_app
+After=network-online.target
+
+[Service]
+Type=simple
+User=ec2-user
+ExecStart=/opt/django_app/.venv/Scripts/python3 manage.py runserver 0.0.0.0:8080
+Restart=always
+WorkingDirectory=/opt/django_app
+
+[Install]
+WantedBy=multi-user.target

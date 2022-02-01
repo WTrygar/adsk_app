@@ -1,0 +1,53 @@
+---
+- hosts: main
+  become: yes
+  vars:
+    - REPOSITORY_URL: https://github.com/WTrygar/adsk_app
+  tasks:
+    - name: "Install required dependencies"
+      yum:
+        name: gcc, git, pip
+    - name: "Download repository"
+      git:
+        repo: "{{REPOSITORY_URL}}"
+        dest: "/opt/django_app"
+    - name: "add IP to allowed_hosts list"
+      lineinfile:
+        path: "/opt/django_app/mysite/settings.py"
+        search_string: 'ALLOWED_HOSTS'
+        line: ALLOWED_HOSTS = [{{ansible_default_ipv4.address}}]
+    - name: "Create venv"
+      pip3:
+        requirements: "/opt/django_app/requirements.txt"
+        virtualenv: "/opt/django_app/.venv"
+        virtualenv_command: "python3 -m venv"
+    - name: "Download sqlite3"
+      get_url:
+        url: https://www.sqlite.org/2021/sqlite-autoconf-3350500.tar.gz
+        dest: /opt/sqlite-autoconf-3350500.tar.gz
+    - name: "Unpack sqlite3"
+      unarchive:
+        src: /opt/sqlite-autoconf-3350500.tar.gz
+        dest: /opt/sqlite-autoconf-3350500
+    - name: "Run configure for sqlite3"
+      script:
+        cmd: /opt/sqlite-autoconf-3350500/configure --prefix=/usr/local/
+    - name: "Make & Make install"
+      make:
+        chdir: /opt/sqlite-autoconf-3350500
+      make:
+        chdir: /opt/sqlite-autoconf-3350500
+        target: install
+    - name: "Move sqlite executables"
+      command: mv /usr/bin/sqlite3 /usr/bin/sqlite3_3.7.17
+      command: cp /opt/sqlite-autoconf-3350500/sqlite3 /usr/bin/sqlite3
+      command: export LD_LIBRARY_PATH="/usr/local/lib/"
+    - name: "Create a systemd service"
+      copy:
+        src: "/opt/django_app/django_app.service"
+        dest: "/etc/systemd/system/django_app.service"
+    - name: "Start the service"
+      systemd:
+        name: "django_app"
+        state: restarted
+        daemon_reload: yes
