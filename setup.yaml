@@ -39,7 +39,7 @@
     - debug: var={{item}}
       with_items: dir_out.stdout_lines
     - name: "Run configure for sqlite3"
-      command: "/opt/sqlite-autoconf-3350500/configure --prefix=/usr/local/ && sudo make && sudo make install"
+      command: "cd /opt/sqlite-autoconf-3350500 && ./configure --prefix=/usr/local/ && sudo make && sudo make install"
     - name: "Move sqlite executables"
       command: mv /usr/bin/sqlite3 /usr/bin/sqlite3_3.7.17
       command: cp /opt/sqlite-autoconf-3350500/sqlite3 /usr/bin/sqlite3
