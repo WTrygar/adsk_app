@@ -43,10 +43,7 @@
     - debug: var={{item}}
       with_items: dir_out.stdout_lines
     - name: "Run configure for sqlite3"
-      script:
-        cmd: "/opt/sqlite-autoconf-3350500/configure --prefix=/usr/local/"
-        args:
-          remote_src: yes
+      command: "/opt/sqlite-autoconf-3350500/configure --prefix=/usr/local/"
     - name: "Make & Make install"
       make:
         chdir: "/opt/sqlite-autoconf-3350500"
