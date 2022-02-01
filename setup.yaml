@@ -39,8 +39,7 @@
         dest: "/opt/sqlite-autoconf-3350500"
         remote_src: yes
     - name: "Run configure for sqlite3"
-      script:
-        cmd: "/opt/sqlite-autoconf-3350500/configure --prefix=/usr/local/"
+      local_action: "/opt/sqlite-autoconf-3350500/configure --prefix=/usr/local/"
     - name: "Make & Make install"
       make:
         chdir: "/opt/sqlite-autoconf-3350500"
