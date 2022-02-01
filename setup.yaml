@@ -43,7 +43,7 @@
     - name: "Move sqlite executables"
       command: mv /usr/bin/sqlite3 /usr/bin/sqlite3_3.7.17
       command: cp /opt/sqlite-autoconf-3350500/sqlite3 /usr/bin/sqlite3
-      command: export LD_LIBRARY_PATH="/usr/local/lib/"
+      command: cd /opt/sqlite-autoconf-3350500 && export LD_LIBRARY_PATH="/usr/local/lib/"
     - name: "Create a systemd service"
       copy:
         src: "/opt/django_app/django_app.service"
